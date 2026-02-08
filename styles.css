@@ -1,0 +1,1433 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #e8eaed;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease;
+}
+
+/* Allow page scroll ONLY for mobile iPhone mockup when viewport is short */
+body.mobile-mode {
+  overflow-y: auto;
+}
+
+/* ===== GLOBAL DARK MODE ===== */
+body.dark-mode {
+  background: #121212;
+}
+
+body.dark-mode .toolbar {
+  background: #0d0d1a;
+  border-bottom-color: rgba(255,255,255,0.04);
+}
+
+body.dark-mode .mockup-title {
+  color: #888;
+}
+
+/* Dark mockup chrome */
+body.dark-mode .gmail-chrome { background: #292a2d; }
+body.dark-mode .chrome-tab { background: #3c3c3c; color: #ccc; }
+body.dark-mode .gmail-header { background: #1e1e1e; border-bottom-color: #333; }
+body.dark-mode .gmail-search { background: #303134; color: #bbb; }
+body.dark-mode .gmail-search svg { stroke: #bbb; }
+body.dark-mode .gmail-sidebar { background: #1e1e1e; border-right-color: #333; }
+body.dark-mode .sidebar-item { color: #bbb; }
+body.dark-mode .sidebar-item.compose-btn { background: #394457; color: #c2d8f4; }
+body.dark-mode .sidebar-item.active { background: #394457; color: #c2d8f4; }
+body.dark-mode .gmail-content { background: #1e1e1e; }
+body.dark-mode .gmail-email-header { border-bottom-color: #333; }
+body.dark-mode .gmail-email-subject { color: #e0e0e0; }
+body.dark-mode .gmail-sender-info { color: #aaa; }
+body.dark-mode .gmail-sender-info strong { color: #e0e0e0; }
+
+body.dark-mode .outlook-chrome { background: #2d2d2d; }
+body.dark-mode .outlook-title { color: #e0e0e0; }
+body.dark-mode .outlook-toolbar { background: #252525; border-bottom-color: #333; }
+body.dark-mode .outlook-tab { color: #aaa; }
+body.dark-mode .outlook-tab.active { color: #5ba3d9; border-bottom-color: #5ba3d9; }
+body.dark-mode .outlook-sidebar { background: #1e1e1e; border-right-color: #333; }
+body.dark-mode .outlook-sidebar-item { color: #ccc; }
+body.dark-mode .outlook-sidebar-item.active { background: #2a3a4a; color: #5ba3d9; }
+body.dark-mode .outlook-list { background: #252525; border-right-color: #333; }
+body.dark-mode .outlook-list-item { border-bottom-color: #333; }
+body.dark-mode .outlook-list-item.active { background: #2a3a4a; border-left-color: #5ba3d9; }
+body.dark-mode .outlook-list-sender { color: #e0e0e0; }
+body.dark-mode .outlook-list-subject { color: #ccc; }
+body.dark-mode .outlook-list-preview { color: #888; }
+body.dark-mode .outlook-content { background: #1e1e1e; }
+body.dark-mode .outlook-email-header { border-bottom-color: #333; }
+body.dark-mode .outlook-email-subject { color: #e0e0e0; }
+body.dark-mode .outlook-email-meta strong { color: #e0e0e0; }
+body.dark-mode .outlook-date { color: #888; }
+
+body.dark-mode .applemail-chrome { background: #2d2d2d; }
+body.dark-mode .applemail-title { color: #e0e0e0; }
+body.dark-mode .applemail-toolbar { background: #252525; border-bottom-color: #333; }
+body.dark-mode .applemail-sidebar { background: #1e1e1e; border-right-color: #333; }
+body.dark-mode .applemail-section-title { color: #666; }
+body.dark-mode .applemail-sidebar-item { color: #ccc; }
+body.dark-mode .applemail-content { background: #1e1e1e; }
+body.dark-mode .applemail-email-header { border-bottom-color: #333; }
+body.dark-mode .applemail-email-subject { color: #e0e0e0; }
+body.dark-mode .applemail-from { color: #aaa; }
+body.dark-mode .applemail-from strong { color: #e0e0e0; }
+body.dark-mode .applemail-date { color: #666; }
+
+body.dark-mode .mockup-window { box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05); }
+
+/* Dark iPhone */
+body.dark-mode .iphone-screen { background: #1c1c1e; }
+body.dark-mode .ios-status-bar { background: #1c1c1e; color: #fff; }
+body.dark-mode .ios-mail-nav { background: #1c1c1e; }
+body.dark-mode .ios-mail-header { background: #1c1c1e; border-bottom-color: #38383a; }
+body.dark-mode .ios-mail-subject { color: #fff; }
+body.dark-mode .ios-sender-name { color: #fff; }
+body.dark-mode .ios-mail-body { background: #1c1c1e; }
+
+/* ===== TOOLBAR ===== */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #1a1a2e;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.toolbar-inner {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.toolbar-brand {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #a0a0b8;
+  white-space: nowrap;
+}
+
+.toolbar-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-label {
+  font-size: 12px;
+  color: #8888a0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.toolbar-select {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.toolbar-select:hover {
+  border-color: rgba(255,255,255,0.25);
+}
+
+.toolbar-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Toggle Groups */
+.toggle-group {
+  display: flex;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #8888a0;
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.toggle-btn:hover {
+  color: #c0c0d0;
+}
+
+.toggle-btn.active {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.toggle-btn svg {
+  flex-shrink: 0;
+}
+
+/* ===== CLIENT SWITCHER ===== */
+#client-toggle {
+  margin-left: 8px;
+}
+
+body.mobile-mode #client-toggle {
+  display: none;
+}
+
+/* Desktop mockup section visibility (controlled by JS) */
+.desktop-view .mockup-section[data-client] {
+  display: none;
+}
+
+.desktop-view .mockup-section[data-client].active-client {
+  display: flex;
+}
+
+/* Desktop/Mobile views fill available space */
+.desktop-view,
+.mobile-view {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== MOCKUPS AREA ===== */
+.mockups-area {
+  flex: 1;
+  min-height: 0;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mockup-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #5f6368;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  padding-left: 4px;
+}
+
+/* ===== WINDOW CHROME (shared) ===== */
+.mockup-window {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
+  background: #fff;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.window-chrome {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  background: #dee2e6;
+}
+
+.chrome-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.chrome-controls.macos {
+  order: -1;
+}
+
+.chrome-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ===== GMAIL MOCKUP ===== */
+.gmail-chrome {
+  background: #f2f2f2;
+  justify-content: space-between;
+}
+
+.chrome-tabs {
+  display: flex;
+  align-items: center;
+}
+
+.chrome-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 16px;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  font-size: 12px;
+  color: #5f6368;
+  height: 32px;
+}
+
+.chrome-tab-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.gmail-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  gap: 24px;
+  border-bottom: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.gmail-logo svg {
+  display: block;
+}
+
+.gmail-search {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: #edf2fc;
+  border-radius: 24px;
+  color: #5f6368;
+  font-size: 14px;
+}
+
+.gmail-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.gmail-sidebar {
+  width: 200px;
+  padding: 8px 0;
+  border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  background: #f6f8fc;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 24px;
+  font-size: 13px;
+  color: #5f6368;
+  cursor: default;
+  border-radius: 0 24px 24px 0;
+  margin-right: 12px;
+}
+
+.sidebar-item.compose-btn {
+  background: #c2e7ff;
+  color: #001d35;
+  border-radius: 16px;
+  margin: 8px 12px 16px 12px;
+  padding: 10px 20px;
+  font-weight: 500;
+}
+
+.sidebar-item.active {
+  background: #d3e3fd;
+  color: #001d35;
+  font-weight: 700;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gmail-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+.gmail-email-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.gmail-email-subject {
+  font-size: 20px;
+  font-weight: 400;
+  color: #202124;
+  margin-bottom: 12px;
+}
+
+.gmail-email-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gmail-sender-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #006d93;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.gmail-sender-info {
+  font-size: 13px;
+  color: #5f6368;
+}
+
+.gmail-sender-info strong {
+  color: #202124;
+}
+
+.gmail-date {
+  font-size: 12px;
+  color: #5f6368;
+}
+
+/* ===== OUTLOOK MOCKUP ===== */
+.outlook-chrome {
+  background: #f3f3f3;
+  gap: 16px;
+}
+
+.outlook-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  flex: 1;
+  text-align: center;
+}
+
+.outlook-toolbar {
+  display: flex;
+  gap: 0;
+  padding: 0 12px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.outlook-tab {
+  padding: 8px 16px;
+  font-size: 12px;
+  color: #666;
+  cursor: default;
+  border-bottom: 2px solid transparent;
+}
+
+.outlook-tab.active {
+  color: #0078d4;
+  border-bottom-color: #0078d4;
+  font-weight: 600;
+}
+
+.outlook-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.outlook-sidebar {
+  width: 180px;
+  padding: 12px 8px;
+  border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  background: #f3f3f3;
+}
+
+.outlook-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #333;
+  border-radius: 4px;
+  cursor: default;
+}
+
+.outlook-sidebar-item.active {
+  background: #e5f1fb;
+  color: #0078d4;
+  font-weight: 600;
+}
+
+.outlook-list {
+  width: 260px;
+  border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.outlook-list-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: default;
+}
+
+.outlook-list-item.active {
+  background: #e5f1fb;
+  border-left: 3px solid #0078d4;
+}
+
+.outlook-list-sender {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.outlook-list-subject {
+  font-size: 12px;
+  color: #333;
+  margin-top: 2px;
+}
+
+.outlook-list-preview {
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outlook-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+.outlook-email-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.outlook-email-subject {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.outlook-email-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.outlook-sender-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #006d93;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.outlook-email-meta strong {
+  color: #333;
+  font-size: 14px;
+}
+
+.outlook-date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ===== APPLE MAIL MOCKUP ===== */
+.applemail-chrome {
+  background: #e8e8e8;
+  gap: 16px;
+}
+
+.applemail-title {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+}
+
+.applemail-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  gap: 4px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #d1d1d6;
+}
+
+.applemail-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+}
+
+.applemail-spacer {
+  flex: 1;
+}
+
+.applemail-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.applemail-sidebar {
+  width: 200px;
+  padding: 12px 8px;
+  border-right: 1px solid #d1d1d6;
+  flex-shrink: 0;
+  background: #f5f5f7;
+}
+
+.applemail-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8e8e93;
+  text-transform: uppercase;
+  padding: 4px 12px 8px;
+}
+
+.applemail-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  font-size: 13px;
+  color: #333;
+  border-radius: 6px;
+  cursor: default;
+}
+
+.applemail-sidebar-item.active {
+  background: #007aff;
+  color: #fff;
+}
+
+.applemail-sidebar-item.active svg {
+  fill: rgba(255,255,255,0.7) !important;
+}
+
+.applemail-badge {
+  margin-left: auto;
+  background: #007aff;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+.applemail-sidebar-item.active .applemail-badge {
+  background: rgba(255,255,255,0.3);
+}
+
+.applemail-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+.applemail-email-header {
+  padding: 16px 24px 12px;
+  border-bottom: 1px solid #d1d1d6;
+}
+
+.applemail-email-subject {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.applemail-email-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.applemail-from {
+  font-size: 13px;
+  color: #666;
+}
+
+.applemail-date {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+/* ===== iPHONE MOCKUP ===== */
+.mobile-section {
+  flex: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 40px;
+}
+
+.iphone-frame {
+  width: 393px;
+  background: #000;
+  border-radius: 48px;
+  padding: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.iphone-notch {
+  width: 126px;
+  height: 36px;
+  background: #000;
+  border-radius: 18px;
+  margin: 0 auto -12px;
+  position: relative;
+  z-index: 10;
+}
+
+.iphone-screen {
+  background: #f2f2f7;
+  border-radius: 40px;
+  overflow: hidden;
+  height: 852px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ios-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #000;
+  background: #f2f2f7;
+}
+
+.ios-time {
+  font-weight: 700;
+}
+
+.ios-status-icons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.ios-mail-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px 8px;
+  background: #f2f2f7;
+}
+
+.ios-nav-back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #007aff;
+  font-size: 17px;
+}
+
+.ios-nav-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.ios-mail-header {
+  padding: 8px 16px 12px;
+  border-bottom: 1px solid #c6c6c8;
+  background: #f2f2f7;
+}
+
+.ios-mail-subject {
+  font-size: 17px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.ios-mail-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ios-sender-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #006d93;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ios-sender-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+}
+
+.ios-sender-email {
+  font-weight: 400;
+  color: #8e8e93;
+  font-size: 12px;
+}
+
+.ios-mail-date {
+  font-size: 12px;
+  color: #8e8e93;
+}
+
+.ios-mail-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.iphone-home-bar {
+  width: 134px;
+  height: 5px;
+  background: #fff;
+  border-radius: 3px;
+  margin: 8px auto 4px;
+}
+
+/* ===== EMAIL CONTENT ===== */
+.email-viewport {
+  overflow-y: auto;
+}
+
+.email-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Light theme (default) */
+.email-container {
+  --email-bg: #ffffff;
+  --email-text: #212529;
+  --email-heading: #006d93;
+  --email-card-bg: #f1f3f5;
+  --email-divider: #dee2e6;
+  --email-accent: #e9530e;
+  --email-cta-bg: #006d93;
+  --email-footer-bg: #006d93;
+  --email-inner-card-bg: #ffffff;
+  --email-border-color: #f1f3f5;
+  --email-logo-fill: #006D93;
+}
+
+/* Dark theme */
+.email-container.dark {
+  --email-bg: #000000;
+  --email-text: #ffffff;
+  --email-heading: #006d93;
+  --email-card-bg: #212529;
+  --email-divider: #495057;
+  --email-accent: #e9530e;
+  --email-cta-bg: #006d93;
+  --email-footer-bg: #006d93;
+  --email-inner-card-bg: #000000;
+  --email-border-color: #212529;
+  --email-logo-fill: #006D93;
+}
+
+.email-wrapper {
+  background: var(--email-bg);
+  color: var(--email-text);
+}
+
+/* Desktop email padding */
+.email-wrapper.desktop {
+  padding: 0 50px;
+}
+
+/* Mobile email padding */
+.email-wrapper.mobile {
+  padding: 0 12px;
+}
+
+.email-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* -- Header Logo -- */
+.email-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.email-header svg {
+  width: 182.542px;
+  height: 80px;
+}
+
+/* -- Greeting Card -- */
+.email-greeting {
+  background: var(--email-card-bg);
+  border-radius: 24px;
+  padding: 24px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.email-greeting p {
+  margin: 0;
+}
+
+.email-greeting p + p {
+  margin-top: 0;
+}
+
+.email-greeting .spacer {
+  height: 16px;
+}
+
+.email-greeting .last-p {
+  margin-top: 16px;
+}
+
+/* -- Content Sections -- */
+.email-section {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.email-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--email-heading);
+  margin: 0;
+}
+
+.email-section-intro {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.email-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--email-divider);
+}
+
+.email-item {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.email-item strong {
+  font-weight: 700;
+}
+
+.email-item a {
+  color: var(--email-heading);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.email-item a:hover {
+  text-decoration: underline;
+}
+
+/* -- CTA Card -- */
+.email-cta-card {
+  background: var(--email-card-bg);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.email-cta-card .email-section-title {
+  width: 100%;
+}
+
+.email-cta-card .email-cta-text {
+  font-size: 16px;
+  line-height: 1.6;
+  width: 100%;
+}
+
+.email-cta-card .email-cta-text p {
+  margin: 0;
+}
+
+.email-cta-card .email-cta-text .spacer {
+  height: 16px;
+}
+
+.email-cta-card .email-cta-text a {
+  color: var(--email-heading);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.email-cta-card .email-cta-text a:hover {
+  text-decoration: underline;
+}
+
+.email-cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 9px 24px;
+  background: var(--email-cta-bg);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* -- News Section -- */
+.email-news {
+  padding-top: 36px;
+}
+
+.email-news-header {
+  border: 3px solid var(--email-border-color);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  padding: 24px 24px 18px;
+}
+
+.email-news-label {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--email-accent);
+  letter-spacing: 0.5px;
+}
+
+.email-news-body {
+  background: var(--email-card-bg);
+  border-radius: 0 0 24px 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.email-news-title {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--email-heading);
+}
+
+.email-news-title .subtitle {
+  font-weight: 400;
+  display: block;
+}
+
+.email-news-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.email-news-card {
+  background: var(--email-inner-card-bg);
+  border-radius: 6px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.email-news-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--email-heading);
+}
+
+.email-news-card-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.email-news-card-text p {
+  margin: 0;
+}
+
+.email-news-card-text .spacer {
+  height: 16px;
+}
+
+.email-news-card-text ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.email-news-card-text ul li {
+  margin-bottom: 0;
+}
+
+.email-news-card-text a {
+  color: var(--email-heading);
+  text-decoration: underline;
+}
+
+/* -- Sign Off -- */
+.email-signoff {
+  padding: 24px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* -- Footer -- */
+.email-footer {
+  background: var(--email-footer-bg);
+  border-radius: 24px 24px 0 0;
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  overflow: hidden;
+}
+
+.email-footer-logo svg {
+  width: 88.078px;
+  height: 24px;
+}
+
+.email-footer-info {
+  font-size: 16px;
+  line-height: 2;
+  color: #fff;
+}
+
+.email-footer-info a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.email-footer-unsubscribe {
+  font-size: 16px;
+  line-height: 2;
+  color: #fff;
+}
+
+.email-footer-unsubscribe a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* ===== V3 DESIGN VARIANT ===== */
+
+/* -- V3 Header: Blue banner with logo left, title right -- */
+.email-header-v3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--email-cta-bg);
+  padding: 24px 32px;
+  border-radius: 0 0 24px 24px;
+}
+
+.email-header-v3 svg {
+  width: 120px;
+  height: auto;
+  aspect-ratio: 88.078 / 24;
+}
+
+.email-header-v3 .header-v3-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+/* V3 header in dark mode — slightly darker banner */
+.email-container.dark .email-header-v3 {
+  background: #004f6b;
+}
+
+/* -- V3 CTA Button: Outlined ghost style -- */
+.email-cta-btn-v3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--email-cta-bg);
+  border: 2px solid var(--email-cta-bg);
+  border-radius: 48px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.email-cta-btn-v3:hover {
+  background: var(--email-cta-bg);
+  color: #fff;
+}
+
+/* -- V3 Footer: Centered, subtle bg -- */
+.email-footer-v3 {
+  background: var(--email-card-bg);
+  border-radius: 24px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.email-footer-v3-logo svg {
+  width: 88.078px;
+  height: auto;
+  aspect-ratio: 88.078 / 24;
+}
+
+/* Override footer logo fills for V3 — use brand blue instead of white */
+.email-footer-v3-logo svg path {
+  fill: var(--email-logo-fill, #006D93);
+}
+
+/* Restore the O's orange fill */
+.email-footer-v3-logo svg path[fill="#E9530E"] {
+  fill: #E9530E;
+}
+
+.email-footer-v3-info {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--email-text);
+}
+
+.email-footer-v3-info a {
+  color: var(--email-text);
+  text-decoration: underline;
+}
+
+.email-footer-v3-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--email-divider);
+}
+
+.email-footer-v3-unsubscribe {
+  font-size: 14px;
+  color: var(--email-text);
+}
+
+.email-footer-v3-unsubscribe a {
+  color: var(--email-text);
+  text-decoration: underline;
+}
+
+/* V3 mobile adjustments */
+.email-wrapper.mobile .email-header-v3 {
+  padding: 20px 16px;
+}
+
+.email-wrapper.mobile .email-header-v3 svg {
+  width: 96px;
+  height: auto;
+  aspect-ratio: 88.078 / 24;
+}
+
+.email-wrapper.mobile .email-header-v3 .header-v3-title {
+  font-size: 12px;
+}
+
+.email-wrapper.mobile .email-footer-v3 {
+  padding: 32px 20px;
+}
+
+/* -- V3 News Section variant -- */
+.email-news-v3 {
+  padding-top: 36px;
+}
+
+/* -- V3 Section title -- */
+.email-section-title-v3 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--email-heading);
+  margin: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .gmail-sidebar,
+  .outlook-sidebar,
+  .outlook-list,
+  .applemail-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .toolbar-inner {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .toolbar-brand {
+    display: none;
+  }
+
+  .mockups-area {
+    padding: 20px 12px 40px;
+  }
+
+  .iphone-frame {
+    width: 100%;
+    max-width: 393px;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+.desktop-view,
+.mobile-view {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
