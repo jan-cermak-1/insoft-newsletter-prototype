@@ -1738,6 +1738,9 @@ body.mobile-mode #client-toggle {
 .email-inner-v8 {
   --email-card-bg: #f4f5f3;
 }
+.email-container.dark .email-inner-v8 {
+  --email-card-bg: #212529;
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1100px) {
