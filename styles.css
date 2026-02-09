@@ -909,8 +909,6 @@ body.mobile-mode #client-toggle {
 .email-container {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 /* Light theme (default) */
@@ -959,6 +957,7 @@ body.mobile-mode #client-toggle {
 }
 
 .email-inner {
+  width: 100%;
   max-width: 600px;
   margin: 0 auto;
   display: flex;
@@ -1100,7 +1099,7 @@ body.mobile-mode #client-toggle {
   padding: 9px 24px;
   background: var(--email-cta-bg);
   color: #fff;
-  border-radius: 6px;
+  border-radius: 999px;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.5;
@@ -1211,7 +1210,7 @@ body.mobile-mode #client-toggle {
 .email-footer {
   background: var(--email-footer-bg);
   border-radius: 24px 24px 0 0;
-  padding: 48px 36px;
+  padding: 48px;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -1224,7 +1223,7 @@ body.mobile-mode #client-toggle {
 }
 
 .email-footer-info {
-  font-size: 16px;
+  font-size: 12px;
   line-height: 2;
   color: #fff;
 }
@@ -1235,7 +1234,7 @@ body.mobile-mode #client-toggle {
 }
 
 .email-footer-unsubscribe {
-  font-size: 16px;
+  font-size: 12px;
   line-height: 2;
   color: #fff;
 }
@@ -1387,6 +1386,357 @@ body.mobile-mode #client-toggle {
   line-height: 1.5;
   color: var(--email-heading);
   margin: 0;
+}
+
+/* ===== V4-V9 SHARED STYLES ===== */
+
+/* Preheader link "Zobrazit email v prohlížeči" */
+.email-preheader {
+  text-align: right;
+  padding: 24px 0 0;
+}
+
+.email-preheader a {
+  font-size: 12px;
+  color: #868e96;
+  text-decoration: underline;
+  line-height: 1.6;
+}
+
+/* ===== V4-V9 Version-specific top sections ===== */
+
+/* V4: preheader+logo in one wrapper (Figma: py-24px), greeting separate (p-48) */
+.email-top-v4 {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+}
+.email-top-v4 .email-preheader {
+  padding: 0;
+}
+.email-greeting-v4 {
+  padding: 48px;
+}
+
+/* V5: preheader+hero+greeting in one wrapper (Figma: pt-24px, no gap) */
+.email-top-v5 {
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+}
+.email-top-v5 .email-preheader {
+  padding: 0;
+}
+.email-greeting-v5 {
+  padding: 48px;
+  border-radius: 0 0 24px 24px;
+}
+
+/* V6: same structure as V5 */
+.email-top-v6 {
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+}
+.email-top-v6 .email-preheader {
+  padding: 0;
+}
+.email-greeting-v6 {
+  padding: 48px;
+  border-radius: 0 0 24px 24px;
+}
+
+/* V8: preheader separate, image+greeting combined (Figma: bg #f4f5f3) */
+.email-top-v8 {
+  display: flex;
+  flex-direction: column;
+}
+.email-top-v8 .email-header-img img {
+  border-radius: 24px 24px 0 0;
+}
+.email-greeting-v8 {
+  padding: 0 48px 48px;
+  border-radius: 0 0 24px 24px;
+}
+
+/* V9: preheader separate, image+greeting combined (standard bg) */
+.email-top-v9 {
+  display: flex;
+  flex-direction: column;
+}
+.email-top-v9 .email-header-img img {
+  border-radius: 24px 24px 0 0;
+}
+.email-greeting-v9 {
+  padding: 0 48px 48px;
+  border-radius: 0 0 24px 24px;
+}
+
+/* Larger section titles for V4+ */
+.email-section-title-v4 {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--email-heading);
+  margin: 0;
+}
+
+/* More spacious sections for V4+ */
+.email-section-v4 {
+  padding: 48px 24px;
+  gap: 36px;
+}
+
+/* Larger news title for V4+ */
+.email-news-title-v4 {
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+/* Pill CTA button for V4+ */
+.email-cta-btn-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 9px 24px;
+  background: var(--email-cta-bg);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* V2 footer keeps 16px text (user-requested) */
+.email-footer-v2 .email-footer-info,
+.email-footer-v2 .email-footer-unsubscribe {
+  font-size: 16px;
+}
+
+/* V4+ news body: larger top padding per Figma */
+.email-news-body-v4 {
+  padding-top: 48px;
+}
+
+/* V4+ news cards: 24px gap (vs 12px for V1) */
+.email-news-cards-v4 {
+  gap: 24px;
+}
+
+/* -- V4 Header: Logo only, left-aligned, taller container -- */
+.email-header-v4 {
+  height: 180px;
+  padding: 18px 27px;
+  display: flex;
+  align-items: center;
+}
+
+.email-header-v4 svg {
+  width: 129.124px;
+  height: 35.184px;
+}
+
+/* -- V5/V6/V8/V9 Header: Exported PNG image -- */
+.email-header-img {
+  width: 100%;
+  line-height: 0;
+}
+
+.email-header-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* -- V5/V6 Hero: Full-bleed image with gradient + overlaid logo (legacy) -- */
+.email-hero {
+  position: relative;
+  height: 434px;
+  overflow: hidden;
+}
+
+.email-hero img {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 115%;
+  height: calc(100% + 42px);
+  object-fit: cover;
+}
+
+.email-hero-gradient-linear {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 315px;
+  background: linear-gradient(to bottom, var(--email-bg) 14%, transparent);
+  pointer-events: none;
+}
+
+.email-hero-gradient-radial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 315px;
+  background:
+    linear-gradient(to bottom, var(--email-bg) 14%, transparent),
+    radial-gradient(ellipse at center 30%, var(--email-bg) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.email-hero-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+}
+
+.email-hero-logo svg {
+  width: 182.542px;
+  height: 80px;
+}
+
+/* Greeting card that visually connects with hero (no top rounding) */
+.email-greeting-connected {
+  border-radius: 0 0 24px 24px;
+}
+
+/* V6 extra padding */
+.email-greeting-padded {
+  padding: 48px 24px;
+}
+
+/* -- V7 Header: Logo left + dashboard image right -- */
+/* V7 header: logo left + notebook image right */
+.email-header-v7 {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 24px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: -120px;
+}
+
+.email-header-v7-logo {
+  flex: 1;
+  height: 180px;
+  padding: 18px 27px;
+  display: flex;
+  align-items: center;
+}
+
+.email-header-v7-logo svg {
+  width: 129.124px;
+  height: 35.184px;
+}
+
+/* Notebook image container - positioned right */
+.email-header-v7-img {
+  width: 396px;
+  height: 274px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.email-header-v7-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Shadow beneath the notebook */
+.email-header-v7-shadow {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, transparent 70%);
+  z-index: 0;
+  border-radius: 50%;
+}
+
+/* V7 greeting overlaps with header image (Figma: p-48, full rounded) */
+.email-greeting-v7 {
+  border-radius: 24px;
+  position: relative;
+  z-index: 1;
+  padding: 48px;
+}
+
+/* -- V8 Hero: Device mockup in rounded card -- */
+.email-hero-mockup-wrap {
+  position: relative;
+  height: 321px;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+}
+
+.email-hero-v8 {
+  background: #f4f5f3;
+}
+
+.email-hero-v9 {
+  background: #f1f3f5;
+}
+
+.email-hero-mockup-wrap .email-hero-mockup-bg {
+  position: absolute;
+  top: -39px;
+  right: -57px;
+  width: auto;
+  height: calc(100% + 58px);
+  object-fit: contain;
+}
+
+.email-hero-mockup-wrap .email-hero-mockup-screen {
+  position: absolute;
+  top: 0;
+  right: 39px;
+  width: 314px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+}
+
+.email-hero-mockup-logo {
+  position: absolute;
+  top: 37%;
+  left: 3.3%;
+  z-index: 2;
+}
+
+.email-hero-mockup-logo svg {
+  width: 129.124px;
+  height: 35.184px;
+}
+
+/* V9 monitor mockup — centered display with screenshot */
+.email-hero-v9 .email-hero-mockup-screen {
+  top: 26px;
+  right: auto;
+  left: 259px;
+  width: 381px;
+  height: 214px;
+  object-fit: cover;
+}
+
+/* (V8/V9 greeting now handled by .email-greeting-v8 and .email-greeting-v9) */
+
+/* V8 card bg override */
+.email-inner-v8 {
+  --email-card-bg: #f4f5f3;
 }
 
 /* ===== RESPONSIVE ===== */

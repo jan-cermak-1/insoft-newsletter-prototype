@@ -8,7 +8,7 @@ const state = {
 
 // ===== SVG LOGOS =====
 // Header logo (182.542 x 80) - uses --fill-0 CSS var, default blue #006D93, O is orange #E9530E
-const LOGO_HEADER = `<svg preserveAspectRatio="none" width="182.542" height="80" overflow="visible" viewBox="0 0 182.542 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+const LOGO_HEADER = `<svg preserveAspectRatio="xMinYMid meet" width="182.542" height="80" overflow="visible" viewBox="0 0 182.542 80" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g>
 <g>
 <path d="M28.904 53.289C28.296 53.289 27.7809 53.0722 27.3594 52.638C26.9253 52.216 26.709 51.702 26.709 51.094V28.9038C26.709 28.2963 26.9253 27.7817 27.3594 27.3597C27.7809 26.9261 28.2954 26.7087 28.904 26.7087C29.5115 26.7087 30.0261 26.9261 30.4476 27.3597C30.8817 27.7817 31.0991 28.2963 31.0991 28.9038V51.094C31.0991 51.7015 30.8817 52.216 30.4476 52.638C30.0261 53.0727 29.5115 53.289 28.904 53.289Z" fill="var(--email-logo-fill, #006D93)"/>
@@ -34,6 +34,11 @@ const LOGO_FOOTER = `<svg preserveAspectRatio="none" width="88.078" height="24" 
 <path d="M54.4608 19.8678H43.3257V24H54.4608V19.8678Z" fill="#E9530E"/>
 </g>
 </svg>`;
+
+// Tight-cropped logo for V4/V7 (viewBox matches content bounds exactly: 129.124 x 35.184)
+const LOGO_HEADER_TIGHT = LOGO_HEADER
+  .replace('viewBox="0 0 182.542 80"', 'viewBox="26.709 26.5785 129.124 35.1842"')
+  .replace('width="182.542" height="80"', 'width="129.124" height="35.184"');
 
 // ===== EMAIL TEMPLATE =====
 function generateEmailHTML(theme, device) {
@@ -114,7 +119,7 @@ function generateEmailHTML(theme, device) {
           <div class="spacer"></div>
           <p>Pokud máte o osobní setkání zájem, prosíme o vyplnění krátkého dotazníku a výběr termínu v našem kalendáři.</p>
         </div>
-        <a class="email-cta-btn" href="#">Zarezervujte si termín</a>
+        <a class="email-cta-btn" href="#">Zarezervujte si termín →</a>
       </div>
 
       <!-- News Section -->
@@ -335,7 +340,7 @@ function generateEmailHTMLv2(theme, device) {
       <div class="email-signoff">Váš tým Insoft</div>
 
       <!-- Footer -->
-      <div class="email-footer">
+      <div class="email-footer email-footer-v2">
         <div class="email-footer-logo">${LOGO_FOOTER}</div>
         <div class="email-footer-info">
           Koubkova 13, Praha - Vinohrady<br>
@@ -515,6 +520,240 @@ function generateEmailHTMLv3(theme, device) {
 </div>`;
 }
 
+// ===== EMAIL TEMPLATE V4-V9 (Figma design variants — shared body, different headers) =====
+function generateEmailHTMLv4plus(theme, device, version) {
+  const isDark = theme === 'dark';
+  const isMobile = device === 'mobile';
+  const themeClass = isDark ? 'dark' : '';
+  const deviceClass = isMobile ? 'mobile' : 'desktop';
+
+  // Build top section HTML (preheader + header + greeting) per version
+  let topSectionHTML = '';
+  let innerExtraClass = '';
+
+  const greetingContent = `
+        <p>Dobrý den {name},</p>
+        <div class="spacer"></div>
+        <p>Vítejte u prvního čtvrtletního newsletteru společnosti Insoft. Pravidelně vás budeme informovat o našich novinkách, dokončených projektech a strategickém směřování.</p>
+        <div class="spacer"></div>
+        <p>Děkujeme za Vaši důvěru a partnerství.</p>`;
+
+  switch(version) {
+    case '4':
+      // V4: preheader+logo in one wrapper (py-24), greeting separate (p-48, full rounded)
+      topSectionHTML = `
+      <div class="email-top-v4">
+        <div class="email-preheader"><a href="#">Zobrazit email v prohlížeči</a></div>
+        <div class="email-header-v4">
+          ${LOGO_HEADER_TIGHT}
+        </div>
+      </div>
+      <div class="email-greeting email-greeting-v4">${greetingContent}
+      </div>`;
+      break;
+    case '5':
+      // V5: preheader+hero+greeting in one wrapper (pt-24, no gap)
+      topSectionHTML = `
+      <div class="email-top-v5">
+        <div class="email-preheader"><a href="#">Zobrazit email v prohlížeči</a></div>
+        <div class="email-header-img">
+          <img src="assets/header-v5.png" alt="Insoft">
+        </div>
+        <div class="email-greeting email-greeting-v5">${greetingContent}
+        </div>
+      </div>`;
+      break;
+    case '6':
+      // V6: same structure as V5
+      topSectionHTML = `
+      <div class="email-top-v6">
+        <div class="email-preheader"><a href="#">Zobrazit email v prohlížeči</a></div>
+        <div class="email-header-img">
+          <img src="assets/header-v6.png" alt="Insoft">
+        </div>
+        <div class="email-greeting email-greeting-v6">${greetingContent}
+        </div>
+      </div>`;
+      break;
+    case '7':
+      // V7: preheader separate, logo+image header, greeting overlaps with -48px margin
+      topSectionHTML = `
+      <div class="email-preheader"><a href="#">Zobrazit email v prohlížeči</a></div>
+      <div class="email-header-v7">
+        <div class="email-header-v7-logo">${LOGO_HEADER_TIGHT}</div>
+        <div class="email-header-v7-img">
+          <img src="assets/header-v7-notebook.png" alt="">
+          <div class="email-header-v7-shadow"></div>
+        </div>
+      </div>
+      <div class="email-greeting email-greeting-v7">${greetingContent}
+      </div>`;
+      break;
+    case '8':
+      // V8: preheader separate, image+greeting in one wrapper (bg #f4f5f3)
+      topSectionHTML = `
+      <div class="email-preheader"><a href="#">Zobrazit email v prohlížeči</a></div>
+      <div class="email-top-v8">
+        <div class="email-header-img">
+          <img src="assets/header-v8.png" alt="Insoft">
+        </div>
+        <div class="email-greeting email-greeting-v8">${greetingContent}
+        </div>
+      </div>`;
+      innerExtraClass = ' email-inner-v8';
+      break;
+    case '9':
+      // V9: preheader separate, image+greeting in one wrapper (standard bg)
+      topSectionHTML = `
+      <div class="email-preheader"><a href="#">Zobrazit email v prohlížeči</a></div>
+      <div class="email-top-v9">
+        <div class="email-header-img">
+          <img src="assets/header-v9.png" alt="Insoft">
+        </div>
+        <div class="email-greeting email-greeting-v9">${greetingContent}
+        </div>
+      </div>`;
+      break;
+  }
+
+  return `
+<div class="email-container ${themeClass}">
+  <div class="email-wrapper ${deviceClass}">
+    <div class="email-inner${innerExtraClass}">
+
+      ${topSectionHTML}
+
+      <!-- Section: Co jsme dokončili 2025 -->
+      <div class="email-section email-section-v4">
+        <h2 class="email-section-title email-section-title-v4">Co jsme pro Vás v roce 2025 dokončili</h2>
+        <p class="email-section-intro">V uplynulém roce jsme se zaměřili především na rozvoj Call Intelligence, stabilitu hlasové komunikace a nástroje, které zjednodušují každodenní provoz kontaktních center.</p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>Call Intelligence</strong> s využitím AI Automatické přepisy hovorů, jejich shrnutí, analýza obsahu a možnost fulltextového vyhledávání v historii hovorů. Tyto funkce přinášejí lepší přehled nad komunikací a kvalitní podklady pro datovou analýzu. <a href="#">Zjistit více →</a></p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>uPhone</strong> – moderní softphone Nová generace telefonu přímo v prohlížeči, která umožňuje plynule pokračovat v hovoru i po jeho zavření a opětovném otevření. <a href="#">Zjistit více →</a></p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>uAuth</strong> a moderní autentizace Bezpečnější a jednotné přihlašování včetně podpory Single Sign-On a mobilního přístupu. <a href="#">Zjistit více →</a></p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>Rozšířená historie hovorů</strong> a reporting Práci s historií hovorů jsme zpřesnili pomocí fulltextového vyhledávání v přepisech, konfigurovatelných metadat a pokročilého filtrování s vizuální indikací aktivních filtrů. Součástí je také nový reportovací engine s přizpůsobitelnými sloupci, který usnadňuje práci s většími objemy dat. <a href="#">Zjistit více →</a></p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>Nástroje pro supervizory</strong> Supervizorům jsme nově umožnili hromadně měnit stav agentů, řídit odchozí kampaně v reálném čase a přehledně sledovat fronty pomocí diagramového zobrazení. Přibyla také rozšířená správa aktivních hovorů, která zjednodušuje operativní zásahy v provozu. <a href="#">Zjistit více →</a></p>
+
+        <div class="email-divider"></div>
+        <p class="email-item">Všechna tato řešení jsou plně dostupná k nasazení a mohou být využívána i zákazníky, kteří je zatím nemají aktivní.</p>
+      </div>
+
+      <!-- Section: Kam směřujeme 2026 -->
+      <div class="email-section email-section-v4">
+        <h2 class="email-section-title email-section-title-v4">Kam směřujeme v roce 2026</h2>
+        <p class="email-section-intro">Plánujeme další rozvoj nejen hlasové komunikace, ale i inteligentních nástrojů pro kontaktní centra a dispečerské provozy:</p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>VoiceBot</strong> pro rutinní požadavky a směrování hovorů.</p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>Optimalizace provozu a detekce anomálií pomocí AI.</strong></p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>Rozvoj příchozích telefonních front</strong> s férovějším přidělováním hovorů.</p>
+
+        <div class="email-divider"></div>
+        <p class="email-item"><strong>Dispečerský mód </strong>přizpůsobený potřebám dispečerských a dealingových pracovišť.</p>
+      </div>
+
+      <!-- CTA: Osobní konzultace -->
+      <div class="email-cta-card">
+        <h2 class="email-section-title">Osobní konzultace</h2>
+        <div class="email-cta-text">
+          <p>Nabízíme osobní konzultace, kde probereme vaše zkušenosti, aktuální potřeby a možnosti rozvoje. Pokud máte zájem, rezervujte si termín v našem online kalendáři.</p>
+        </div>
+        <a class="email-cta-btn email-cta-btn-pill" href="#">Zarezervujte si termín →</a>
+      </div>
+
+      <!-- News Section -->
+      <div class="email-news">
+        <div class="email-news-header">
+          <div class="email-news-label">Insoft novinky</div>
+        </div>
+        <div class="email-news-body email-news-body-v4">
+          <div class="email-news-title email-news-title-v4">
+            Call Intelligence:
+            <span class="subtitle">Jak využít AI přepisy hovorů</span>
+          </div>
+          <div class="email-news-cards email-news-cards-v4">
+
+            <div class="email-news-card">
+              <div class="email-news-card-title">Proč jsou AI přepisy užitečné?</div>
+              <div class="email-news-card-text">
+                <p>Hovory se zákazníky obsahují spoustu cenných informací, ale ruční poslech stovek hovorů je časově náročný a často nereálný. AI přepis automaticky převádí hovory do textu a umožní s nimi dále pracovat.</p>
+              </div>
+            </div>
+
+            <div class="email-news-card">
+              <div class="email-news-card-title">Jak to funguje?</div>
+              <div class="email-news-card-text">
+                <p>Přepisy nevznikají okamžitě po skončení hovoru – probíhají se zpožděním. Jsou určeny hlavně pro zpětnou analýzu většího množství záznamů a dlouhodobé sledování komunikace, nikoli pro okamžité reakce.</p>
+              </div>
+            </div>
+
+            <div class="email-news-card">
+              <div class="email-news-card-title">Co umožňují?</div>
+              <div class="email-news-card-text">
+                <ul>
+                  <li><strong>Shrnutí hovoru</strong> – rychlý přehled obsahu bez nutnosti poslechu celého záznamu.</li>
+                  <li><strong>Fulltextové vyhledávání</strong> – najdete přesně to, co vás zajímá, napříč stovkami hovorů.</li>
+                  <li><strong>Štítkování hovoru</strong> – hovory lze označit podle tématu, typu dotazu nebo problému, což výrazně usnadňuje analýzu trendů.</li>
+                </ul>
+                <div class="spacer"></div>
+                <p>Díky těmto funkcím snadno odhalíte opakující se problémy, nejčastější dotazy zákazníků nebo měnící se témata komunikace.</p>
+              </div>
+            </div>
+
+            <div class="email-news-card">
+              <div class="email-news-card-title">Na co AI přepisy nestačí?</div>
+              <div class="email-news-card-text">
+                <p>AI přepisy nenahrazují detailní poslech jednotlivých hovorů. Když je potřeba vnímat tón hlasu nebo konkrétní kontext, je stále nezbytný klasický poslech.</p>
+                <div class="spacer"></div>
+                <p>Hlavní hodnotou přepisů je přehled, analytika a podklady pro lepší rozhodování a optimalizaci procesů.</p>
+              </div>
+            </div>
+
+            <div class="email-news-card">
+              <div class="email-news-card-title">Chcete vědět víc?</div>
+              <div class="email-news-card-text">
+                <p>Podrobnější vysvětlení AI přepisů a příklady jejich využití naleznete v samostatném článku na našem blogu. <a href="#">AI Transkripce hovorů | UCS Documentation</a></p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Sign Off -->
+      <div class="email-signoff">Váš tým Insoft</div>
+
+      <!-- Footer -->
+      <div class="email-footer email-footer-v4">
+        <div class="email-footer-logo">${LOGO_FOOTER}</div>
+        <div class="email-footer-info">
+          Koubkova 13, Praha - Vinohrady<br>
+          +420 211 151 657<br>
+          <a href="mailto:helpdesk@insoft.cz">helpdesk@insoft.cz</a>
+        </div>
+        <div class="email-footer-unsubscribe">
+          Nepřejete si dále dostávat naše emaily? <a href="#">Odhlásit</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>`;
+}
+
 // ===== RENDER =====
 function render() {
   const viewports = document.querySelectorAll('.email-viewport');
@@ -568,7 +807,8 @@ function render() {
     if ((state.device === 'desktop' && isActiveDesktop) ||
         (state.device === 'mobile' && isMobileMockup)) {
       const device = isMobileMockup ? 'mobile' : 'desktop';
-      const generator = state.version === '3' ? generateEmailHTMLv3 : state.version === '2' ? generateEmailHTMLv2 : generateEmailHTML;
+      const vn = state.version;
+      const generator = ['4','5','6','7','8','9'].includes(vn) ? (t, d) => generateEmailHTMLv4plus(t, d, vn) : vn === '3' ? generateEmailHTMLv3 : vn === '2' ? generateEmailHTMLv2 : generateEmailHTML;
       vp.innerHTML = generator(state.theme, device);
     } else {
       vp.innerHTML = '';
@@ -587,7 +827,7 @@ function readStateFromURL() {
   if (device && ['desktop', 'mobile'].includes(device)) state.device = device;
   if (theme && ['light', 'dark'].includes(theme)) state.theme = theme;
   if (client && ['gmail', 'outlook', 'applemail'].includes(client)) state.client = client;
-  if (version && ['1', '2', '3'].includes(version)) state.version = version;
+  if (version && ['1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(version)) state.version = version;
 }
 
 function writeStateToURL() {
